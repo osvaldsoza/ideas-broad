@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
+import git from './github-logo.png'
 import { Button, Form, Card, Col } from 'react-bootstrap'
 import Idea from '././components/Idea'
 
@@ -69,7 +69,7 @@ class App extends Component {
           </Card.Body>
         </Card>
         <Form.Text className="text-muted">
-          <a href="#"><img src="github-logo.png"/></a>
+          <a href="https://github.com/osvaldsoza/ideas-broad" target="_blank"><img src={git}/></a>
         </Form.Text>
       </div>
     );
