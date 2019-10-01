@@ -1,22 +1,29 @@
-.App {
-  text-align: center;
+.App{
+  margin-top: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
+.label-form{
+  width: 100px;
+}
+.form-control{
+  width: 210px;
+}
+h2{
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.card{
+  border:none;
 }
-
-.App-link {
-  color: #09d3ac;
+.broad{
+  margin: 10px;
+  width: 220px;
+  height: 160px;
+  padding: 5px;
+  background:  lightgray;
+float: left;
+font-size: 11px;
+text-align: left;
+margin-bottom: 30px;
 }
