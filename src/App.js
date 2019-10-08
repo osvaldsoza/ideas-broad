@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import git from './github-logo.png'
-import { Button, Form, Card, Col } from 'react-bootstrap'
+import { Button, Form, Card } from 'react-bootstrap'
 import Idea from '././components/Idea'
+import IdeaForm from '././components/IdeaForm'
+import update from 'immutability-helper'
 
 const ops = [
   { value: 1, label: 'Date  created' }
 ]
 
 const initialState = {
-  ideas: []
+  ideas: [],
+  editingIdeaId: null
 }
 
 class App extends Component {
@@ -23,16 +26,23 @@ class App extends Component {
   }
 
   handleGetIdeas = () => {
-    axios.get('http://localhost:3000/ideas/')
+    axios.get('http://localhost:8080/ideasbroad')
       .then((res) => {
         this.setState({ ideas: res.data })
       }).catch(error => console.log(error))
   }
 
   handleNewIdea = () => {
-    axios.post('http://localhost:3000/ideas/', { idea: { title: '', description: '' } })
+    const ideasBroad = {
+      title: ' ',
+      description: ' '
+    }
+    axios.post('http://localhost:8080/ideasbroad', ideasBroad)
       .then((res) => {
-        this.handleGetIdeas()
+        const ideas = update(this.state.ideas, { $splice: [[0, 0, res.data]] })
+        this.setState({ ideas, editingIdeaId: res.data.id }, () => {
+          this.handleGetIdeas()
+        })
       }).catch(error => console.log(error))
   }
 
@@ -59,17 +69,25 @@ class App extends Component {
                 <option>Date  created</option>
               </Form.Control>
             </div>
-            
-              {this.state.ideas.map((idea) => {
+
+            {this.state.ideas.map((idea) => {
+              if (this.state.editingIdeaId === idea.id) {
+                console.log(idea.id, this.state.editingIdeaId)
+                return (
+                  <IdeaForm idea={idea} key={idea.id} />
+                )
+              } else {
+                console.log(2)
                 return (
                   <Idea idea={idea} key={idea.id} />
                 )
-              })}
-            
+              }
+            })}
+
           </Card.Body>
         </Card>
         <Form.Text className="text-muted">
-          <a href="https://github.com/osvaldsoza/ideas-broad" target="_blank"><img src={git}/></a>
+          <a href="https://github.com/osvaldsoza/ideas-broad" target="_blank"><img src={git} /></a>
         </Form.Text>
       </div>
     );
