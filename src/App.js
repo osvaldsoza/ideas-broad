@@ -5,7 +5,7 @@ import { Button, Form, Card } from 'react-bootstrap'
 import Idea from '././components/Idea'
 import IdeaForm from '././components/IdeaForm'
 import update from 'immutability-helper'
-import Api from '././components/Api'
+import {getIdeas} from '././components/Api'
 const ops = [
   { value: 1, label: 'Date  created' }
 ]
