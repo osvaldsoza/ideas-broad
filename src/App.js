@@ -5,7 +5,7 @@ import { Button, Form, Card } from 'react-bootstrap'
 import Idea from '././components/Idea'
 import IdeaForm from '././components/IdeaForm'
 import update from 'immutability-helper'
-
+import Api from '././components/Api'
 const ops = [
   { value: 1, label: 'Date  created' }
 ]
@@ -72,14 +72,12 @@ class App extends Component {
 
             {this.state.ideas.map((idea) => {
               if (this.state.editingIdeaId === idea.id) {
-                console.log(idea.id, this.state.editingIdeaId)
                 return (
                   <IdeaForm idea={idea} key={idea.id} />
                 )
               } else {
-                console.log(2)
                 return (
-                  <Idea idea={idea} key={idea.id} />
+                  <IdeaForm idea={idea} key={idea.id} />
                 )
               }
             })}
@@ -87,7 +85,7 @@ class App extends Component {
           </Card.Body>
         </Card>
         <Form.Text className="text-muted">
-          <a href="https://github.com/osvaldsoza/ideas-broad" target="_blank"><img src={git} /></a>
+          <a href="https://github.com/osvaldsoza/ideas-broad" target="_blank" ><img src={git} alt="Git" /></a>
         </Form.Text>
       </div>
     );

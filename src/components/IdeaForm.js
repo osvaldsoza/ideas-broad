@@ -37,7 +37,7 @@ class IdeaForm extends Component {
 
         axios.post('http://localhost:8080/ideasbroad', ideasBroad)
             .then((res) => {
-                this.handleGetIdeas()
+                this.props.handleGetIdeas()
             }).catch(error => console.log(error))
     }
 
