@@ -30,7 +30,10 @@ margin-bottom: 30px;
 
 .btn-danger{
   margin-top: 5px;
-  color: #dc3545;
   background: #fff;
   border: none;
+}
+
+.img:hover{
+  background:#dc3545; 
 }

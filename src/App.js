@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import git from './github-logo.png'
 import { Button, Form, Card } from 'react-bootstrap'
-import Idea from '././components/Idea'
 import IdeaForm from '././components/IdeaForm'
 import update from 'immutability-helper'
-import { getIdeas } from '././components/Api'
+
+
 const ops = [
   { value: 1, label: 'Date  created' }
 ]
@@ -51,38 +51,37 @@ class App extends Component {
       <div className="App d-flex flex-column align-items-center" >
         <Card style={{ width: '70rem' }}>
           <Card.Body>
-            <h2 className="text-center">Idea Board</h2>
+            <h2 className="text-center">Idea Board
+            <Form.Text className="text-muted">
+                <a href="https://github.com/osvaldsoza/ideas-broad" target="_blank" ><img src={git} alt="Git - osvaldsoza-ideas-broad" /></a>
+              </Form.Text>
+            </h2>
             <div className="d-flex align-items-baseline"
               style={{ marginLeft: '10px' }}
             >
               <Button variant="primary" size="lg"
                 onClick={this.handleNewIdea}>
                 New Idea
-              </Button>
+            </Button>
 
               <Form.Label
                 className="label-form"
                 style={{ marginLeft: '10px', marginRight: '10px' }}
               >
                 Sort ideas by:
-              </Form.Label>
+            </Form.Label>
               <Form.Control as="select">
                 <option>Date  created</option>
               </Form.Control>
             </div>
 
             {this.state.ideas.map((idea) => {
-
               return (
-                <IdeaForm idea={idea} key={idea.id} />
+                <IdeaForm idea={idea} key={idea.id} handleGetIdeas={this.handleGetIdeas} />
               )
             })}
-
           </Card.Body>
         </Card>
-        <Form.Text className="text-muted">
-          <a href="https://github.com/osvaldsoza/ideas-broad" target="_blank" ><img src={git} alt="Git" /></a>
-        </Form.Text>
       </div>
     );
   }

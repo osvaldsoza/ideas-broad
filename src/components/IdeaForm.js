@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { Form } from 'react-bootstrap'
+import trash from '../../src/trash.png'
 
 class IdeaForm extends Component {
     static propTypes = {
@@ -41,6 +42,24 @@ class IdeaForm extends Component {
             }).catch(error => console.log(error))
     }
 
+    handleExcluirIdea = () => {
+        const {
+            title,
+            description
+        } = this.state
+
+        const ideasBroad = {
+            title,
+            description,
+            id: this.props.idea.id
+        }
+
+        axios.delete(`http://localhost:5000/ideasbroad/${ideasBroad.id}`)
+            .then((res) => {
+                this.props.handleGetIdeas()
+            }).catch(error => console.log(error))
+    }
+
     render() {
         return (
             <div className="broad" >
@@ -58,14 +77,15 @@ class IdeaForm extends Component {
                         value={this.state.description}
                         onChange={this.handleOnChange}
                     />
-                    <button
-                        type="button"
-                        class="btn btn-danger btn-block"
-                        style={{marginTop:'5px'}}
-                    >
-                        Delete
-                        </button>
                 </form>
+                <button
+                    type="button"
+                    class="btn btn-danger btn-block"
+                    style={{ marginTop: '5px' }}
+                    onClick={this.handleExcluirIdea}
+                >
+                    <img src={trash} />
+                </button>
             </div>
 
         )
