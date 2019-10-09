@@ -20,6 +20,7 @@ class Idea extends Component {
                     value={this.state.title}
                     name="title"
                     onChange={this.handleOnChange}
+                    placeholder="Title"
                 />
                 <Form.Control
                     as="textarea"

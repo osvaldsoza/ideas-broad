@@ -64,12 +64,15 @@ class IdeaForm extends Component {
         return (
             <div className="broad" >
                 <form onBlur={this.handleOnBlur}>
+                <label>Title</label>
                     <Form.Control
                         type="text"
                         name="title"
                         value={this.state.title}
                         onChange={this.handleOnChange}
+                        placeholder="Title"
                     />
+                    <label>Description</label>
                     <Form.Control
                         as="textarea"
                         name="description"

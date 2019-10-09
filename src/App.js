@@ -4,6 +4,7 @@ import git from './github-logo.png'
 import { Button, Form, Card } from 'react-bootstrap'
 import IdeaForm from '././components/IdeaForm'
 import update from 'immutability-helper'
+import Idea from './components/Idea';
 
 
 const ops = [
@@ -76,9 +77,11 @@ class App extends Component {
             </div>
 
             {this.state.ideas.map((idea) => {
-              return (
-                <IdeaForm idea={idea} key={idea.id} handleGetIdeas={this.handleGetIdeas} />
-              )
+          
+                return (
+                  <IdeaForm idea={idea} key={idea.id} handleGetIdeas={this.handleGetIdeas} />
+                )
+           
             })}
           </Card.Body>
         </Card>
