@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import git from './github-logo.png'
-import { Button, Form, Card } from 'react-bootstrap'
+import { Button, Form, Card, Alert } from 'react-bootstrap'
 import IdeaForm from '././components/IdeaForm'
 import update from 'immutability-helper'
-import Idea from './components/Idea';
-
 
 const ops = [
   { value: 1, label: 'Date  created' }
@@ -13,7 +11,8 @@ const ops = [
 
 const initialState = {
   ideas: [],
-  editingIdeaId: null
+  editingIdeaId: null,
+  newIdea: false
 }
 
 class App extends Component {
@@ -45,6 +44,8 @@ class App extends Component {
           this.handleGetIdeas()
         })
       }).catch(error => console.log(error))
+
+    this.setState({ newIdea: true });
   }
 
   render() {
@@ -58,13 +59,12 @@ class App extends Component {
               </Form.Text>
             </h2>
             <div className="d-flex align-items-baseline"
-              style={{ marginLeft: '10px' }}
+              style={{ marginLeft: '70px' }}
             >
-              <Button variant="primary" size="lg"
+              <Button variant="light" size="lg"
                 onClick={this.handleNewIdea}>
                 New Idea
-            </Button>
-
+              </Button>
               <Form.Label
                 className="label-form"
                 style={{ marginLeft: '10px', marginRight: '10px' }}
@@ -74,15 +74,22 @@ class App extends Component {
               <Form.Control as="select">
                 <option>Date  created</option>
               </Form.Control>
+              {/*           <Alert variant='success' size='sm'>
+                Idea saved successfully!
+    </Alert> */}
             </div>
-
-            {this.state.ideas.map((idea) => {
-          
+            <div className="d-flex justify-content-center">
+              {this.state.ideas.map((idea) => {
                 return (
-                  <IdeaForm idea={idea} key={idea.id} handleGetIdeas={this.handleGetIdeas} />
+                  <IdeaForm
+                    idea={idea}
+                    key={idea.id}
+                    handleGetIdeas={this.handleGetIdeas}
+                    newIdea={this.state.newIdea}
+                  />
                 )
-           
-            })}
+              })}
+            </div>
           </Card.Body>
         </Card>
       </div>
