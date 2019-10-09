@@ -5,7 +5,7 @@ import { Button, Form, Card } from 'react-bootstrap'
 import Idea from '././components/Idea'
 import IdeaForm from '././components/IdeaForm'
 import update from 'immutability-helper'
-import {getIdeas} from '././components/Api'
+import { getIdeas } from '././components/Api'
 const ops = [
   { value: 1, label: 'Date  created' }
 ]
@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   handleGetIdeas = () => {
-    axios.get('http://localhost:8080/ideasbroad')
+    axios.get('http://localhost:5000/ideasbroad')
       .then((res) => {
         this.setState({ ideas: res.data })
       }).catch(error => console.log(error))
@@ -37,7 +37,7 @@ class App extends Component {
       title: ' ',
       description: ' '
     }
-    axios.post('http://localhost:8080/ideasbroad', ideasBroad)
+    axios.post('http://localhost:5000/ideasbroad', ideasBroad)
       .then((res) => {
         const ideas = update(this.state.ideas, { $splice: [[0, 0, res.data]] })
         this.setState({ ideas, editingIdeaId: res.data.id }, () => {
@@ -58,7 +58,8 @@ class App extends Component {
               <Button variant="primary" size="lg"
                 onClick={this.handleNewIdea}>
                 New Idea
-            </Button>
+              </Button>
+
               <Form.Label
                 className="label-form"
                 style={{ marginLeft: '10px', marginRight: '10px' }}
@@ -71,15 +72,10 @@ class App extends Component {
             </div>
 
             {this.state.ideas.map((idea) => {
-              if (this.state.editingIdeaId === idea.id) {
-                return (
-                  <IdeaForm idea={idea} key={idea.id} />
-                )
-              } else {
-                return (
-                  <IdeaForm idea={idea} key={idea.id} />
-                )
-              }
+
+              return (
+                <IdeaForm idea={idea} key={idea.id} />
+              )
             })}
 
           </Card.Body>

@@ -19,11 +19,18 @@ h2{
 .broad{
   margin: 10px;
   width: 220px;
-  height: 160px;
+  height: 204px;
   padding: 5px;
   background:  lightgray;
 float: left;
 font-size: 11px;
 text-align: left;
 margin-bottom: 30px;
+}
+
+.btn-danger{
+  margin-top: 5px;
+  color: #dc3545;
+  background: #fff;
+  border: none;
 }

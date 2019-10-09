@@ -35,30 +35,36 @@ class IdeaForm extends Component {
             id: this.props.idea.id
         }
 
-        axios.post('http://localhost:8080/ideasbroad', ideasBroad)
+        axios.post('http://localhost:5000/ideasbroad', ideasBroad)
             .then((res) => {
                 this.props.handleGetIdeas()
             }).catch(error => console.log(error))
     }
 
     render() {
-        const { title, description } = this.state
         return (
             <div className="broad" >
                 <form onBlur={this.handleOnBlur}>
                     <Form.Control
                         type="text"
                         name="title"
-                        value={title}
+                        value={this.state.title}
                         onChange={this.handleOnChange}
                     />
                     <Form.Control
                         as="textarea"
                         name="description"
                         rows="4"
-                        value={description}
+                        value={this.state.description}
                         onChange={this.handleOnChange}
                     />
+                    <button
+                        type="button"
+                        class="btn btn-danger btn-block"
+                        style={{marginTop:'5px'}}
+                    >
+                        Delete
+                        </button>
                 </form>
             </div>
 
