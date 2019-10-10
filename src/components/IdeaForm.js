@@ -14,15 +14,15 @@ class IdeaForm extends Component {
 
     constructor(props) {
         super(props)
-        this.btnDeleteRef = React.createRef()
-        this.btnSaveRef = React.createRef()
-        this.descriptionRef = React.createRef()
 
-        this.titleRef = React.createRef()
         this.state = {
             title: this.props.idea.title,
             description: this.props.idea.description
         }
+
+        this.btnDeleteRef = React.createRef()
+        this.descriptionRef = React.createRef()
+        this.titleRef = React.createRef()
     }
 
     handleOnChange = (e) => {
@@ -40,7 +40,6 @@ class IdeaForm extends Component {
             description,
             id: this.props.idea.id
         }
-        console.log(this.state.newIdea)
         axios.post('http://localhost:5000/ideasbroad', ideasBroad)
             .then((res) => {
                 this.props.handleGetIdeas()        
@@ -94,7 +93,7 @@ class IdeaForm extends Component {
     render() {
         return (
             <div className="broad" >
-                <form onBlur={!this.state.newIdea ? this.handleSaveIdea : this.handle}>
+                <form onBlur={this.handleSaveIdea}>
                     <label>Title</label>
                     <Form.Control
                         type="text"
