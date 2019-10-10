@@ -40,7 +40,7 @@ class IdeaForm extends Component {
             description,
             id: this.props.idea.id
         }
-        axios.post('http://localhost:5000/ideasbroad', ideasBroad)
+        axios.post('http://localhost:8080/ideasbroad', ideasBroad)
             .then((res) => {
                 this.props.handleGetIdeas()        
             }).catch(error => console.log(error))
@@ -58,7 +58,7 @@ class IdeaForm extends Component {
             id: this.props.idea.id
         }
 
-        axios.delete(`http://localhost:5000/ideasbroad/${ideasBroad.id}`)
+        axios.delete(`http://localhost:8080/ideasbroad/${ideasBroad.id}`)
             .then((res) => {
                 this.props.handleGetIdeas()
             }).catch(error => console.log(error))

@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   handleGetIdeas = () => {
-    axios.get('http://localhost:5000/ideasbroad')
+    axios.get('http://localhost:8080/ideasbroad')
       .then((res) => {
         this.setState({ ideas: res.data })
       }).catch(error => console.log(error))
@@ -36,7 +36,7 @@ class App extends Component {
       title: ' ',
       description: ' '
     }
-    axios.post('http://localhost:5000/ideasbroad', ideasBroad)
+    axios.post('http://localhost:8080/ideasbroad', ideasBroad)
       .then((res) => {
         const ideas = update(this.state.ideas, { $splice: [[0, 0, res.data]] })
         this.setState({ ideas, editingIdeaId: res.data.id }, () => {
@@ -68,7 +68,7 @@ class App extends Component {
               </Form.Text>
             </h2>
             <div className="d-flex align-items-baseline"
-              style={{ marginLeft: '70px' }}
+              style={{ marginLeft: '10px' }}
             >
               <Button variant="light" size="lg"
                 onClick={this.handleNewIdea}>
