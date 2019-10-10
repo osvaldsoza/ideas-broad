@@ -5,14 +5,13 @@ import { Button, Form, Card, Alert } from 'react-bootstrap'
 import IdeaForm from '././components/IdeaForm'
 import update from 'immutability-helper'
 
-const ops = [
+const opsSorted = [
   { value: 1, label: 'Date  created' }
 ]
 
 const initialState = {
   ideas: [],
-  editingIdeaId: null,
-  newIdea: false
+  editingIdeaId: null
 }
 
 class App extends Component {
@@ -48,6 +47,16 @@ class App extends Component {
     this.setState({ newIdea: true });
   }
 
+  selectItems = () =>{
+    return(
+      opsSorted.map(o => {
+        return(
+          <option value={o.value}>{o.label}</option>
+        )
+      }) 
+    )
+  }
+
   render() {
     return (
       <div className="App d-flex flex-column align-items-center" >
@@ -72,24 +81,24 @@ class App extends Component {
                 Sort ideas by:
             </Form.Label>
               <Form.Control as="select">
-                <option>Date  created</option>
+                {
+                  this.selectItems()
+                }
               </Form.Control>
               {/*           <Alert variant='success' size='sm'>
                 Idea saved successfully!
     </Alert> */}
             </div>
-            <div className="d-flex justify-content-center">
+         
               {this.state.ideas.map((idea) => {
                 return (
                   <IdeaForm
                     idea={idea}
                     key={idea.id}
                     handleGetIdeas={this.handleGetIdeas}
-                    newIdea={this.state.newIdea}
                   />
                 )
               })}
-            </div>
           </Card.Body>
         </Card>
       </div>

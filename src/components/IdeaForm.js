@@ -15,11 +15,13 @@ class IdeaForm extends Component {
     constructor(props) {
         super(props)
         this.btnDeleteRef = React.createRef()
+        this.btnSaveRef = React.createRef()
         this.descriptionRef = React.createRef()
+
+        this.titleRef = React.createRef()
         this.state = {
             title: this.props.idea.title,
-            description: this.props.idea.description,
-            newIdea: this.props.newIdea
+            description: this.props.idea.description
         }
     }
 
@@ -38,11 +40,10 @@ class IdeaForm extends Component {
             description,
             id: this.props.idea.id
         }
-
+        console.log(this.state.newIdea)
         axios.post('http://localhost:5000/ideasbroad', ideasBroad)
             .then((res) => {
-                this.props.handleGetIdeas()
-                this.setState({ newIdea: false });
+                this.props.handleGetIdeas()        
             }).catch(error => console.log(error))
     }
 
@@ -65,22 +66,26 @@ class IdeaForm extends Component {
     }
 
     handlePressTitle = (e) => {
+        console.log(e.wich)
         if (e.which === 13 && this.state.title !== '') {
-           this.focusDescription()
-           this.handleSaveIdea()
+            if (this.descriptionRef.current) {
+                this.descriptionRef.current.focus();
+            }
+            this.handleSaveIdea();
         }
     }
 
-    focusDescription=()=>{
-        if (this.descriptionRef.current) {
-            this.descriptionRef.current.focus();
-          }
-    }
-
     handlePressDescription = (e) => {
+        console.log(e)
         if (e.which === 13 && this.state.description !== '') {
-            if(this.btnDeleteRef.current){
-                this.btnDeleteRef.current.focus()
+            if (!this.state.newIdea) {
+                if (this.btnDeleteRef.current) {
+                    this.btnDeleteRef.current.focus()
+                }
+            } else {
+                if (this.btnSaveRef.current) {
+                    this.btnSaveRef.current.focus()
+                }
             }
             this.handleSaveIdea();
         }
@@ -89,7 +94,7 @@ class IdeaForm extends Component {
     render() {
         return (
             <div className="broad" >
-                <form onBlur={this.state.newIdea ? this.handleSaveIdea : this.handle}>
+                <form onBlur={!this.state.newIdea ? this.handleSaveIdea : this.handle}>
                     <label>Title</label>
                     <Form.Control
                         type="text"
@@ -97,6 +102,7 @@ class IdeaForm extends Component {
                         value={this.state.title}
                         onChange={this.handleOnChange}
                         onKeyPress={this.handlePressTitle}
+                        ref={this.titleRef}
                         placeholder="Title"
                     />
                     <label>Description</label>
@@ -110,23 +116,15 @@ class IdeaForm extends Component {
                         ref={this.descriptionRef}
                     />
                 </form>
-                {
-                    this.state.newIdea ?
-                        <Button variant="outline-dark" size="sm" block
-                            style={{ marginTop: '5px' }}
-                            onClick={this.handleSaveIdea}>
-                            Save Idea
-                        </Button>
-                        :
-                        <Button
-                            variant="outline-danger" size="sm" block
-                            style={{ marginTop: '5px' }}
-                            onClick={this.handleExcluirIdea}
-                            ref={this.btnDeleteRef}
-                        >
-                            Delete Idea
-                        </Button>
-                }
+    
+                <Button
+                    variant="outline-danger" size="sm" block
+                    style={{ marginTop: '5px' }}
+                    onClick={this.handleExcluirIdea}
+                    ref={this.btnDeleteRef}
+                >
+                    Delete Idea
+                 </Button>
             </div>
         )
     }
