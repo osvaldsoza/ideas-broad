@@ -42,7 +42,7 @@ class IdeaForm extends Component {
         }
         axios.post('http://localhost:8080/ideasbroad', ideasBroad)
             .then((res) => {
-                this.props.handleGetIdeas()        
+                this.props.handleGetIdeas()
             }).catch(error => console.log(error))
     }
 
@@ -65,7 +65,6 @@ class IdeaForm extends Component {
     }
 
     handlePressTitle = (e) => {
-        console.log(e.wich)
         if (e.which === 13 && this.state.title !== '') {
             if (this.descriptionRef.current) {
                 this.descriptionRef.current.focus();
@@ -75,16 +74,9 @@ class IdeaForm extends Component {
     }
 
     handlePressDescription = (e) => {
-        console.log(e)
         if (e.which === 13 && this.state.description !== '') {
-            if (!this.state.newIdea) {
-                if (this.btnDeleteRef.current) {
-                    this.btnDeleteRef.current.focus()
-                }
-            } else {
-                if (this.btnSaveRef.current) {
-                    this.btnSaveRef.current.focus()
-                }
+            if (this.btnDeleteRef.current) {
+                this.btnDeleteRef.current.focus()
             }
             this.handleSaveIdea();
         }
@@ -115,7 +107,7 @@ class IdeaForm extends Component {
                         ref={this.descriptionRef}
                     />
                 </form>
-    
+
                 <Button
                     variant="outline-danger" size="sm" block
                     style={{ marginTop: '5px' }}
