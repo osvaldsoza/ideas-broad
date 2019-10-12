@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   handleGetIdeas = () => {
-    axios.get('http://localhost:8080/ideasbroad')
+    axios.get('https://ideasbroad.herokuapp.com/ideasbroad')
       .then((res) => {
         this.setState({ ideas: res.data })
       }).catch(error => console.log(error))
@@ -36,9 +36,9 @@ class App extends Component {
       title: ' ',
       description: ' '
     }
-    axios.post('http://localhost:8080/ideasbroad', ideasBroad)
+    axios.post('https://ideasbroad.herokuapp.com/ideasbroad', ideasBroad)
       .then((res) => {
-        const ideas = update(this.state.ideas, { $splice: [[0, 0, res.data]] })
+        const ideas =   update(this.state.ideas, { $splice: [[0, 0, res.data]] })
         this.setState({ ideas, editingIdeaId: res.data.id }, () => {
           this.handleGetIdeas()
         })

@@ -34,13 +34,13 @@ class IdeaForm extends Component {
             title,
             description
         } = this.state
-
+        console.log(title)
         const ideasBroad = {
             title,
             description,
             id: this.props.idea.id
         }
-        axios.post('http://localhost:8080/ideasbroad', ideasBroad)
+        axios.post('https://ideasbroad.herokuapp.com/ideasbroad', ideasBroad)
             .then((res) => {
                 this.props.handleGetIdeas()
             }).catch(error => console.log(error))
@@ -58,7 +58,7 @@ class IdeaForm extends Component {
             id: this.props.idea.id
         }
 
-        axios.delete(`http://localhost:8080/ideasbroad/${ideasBroad.id}`)
+        axios.delete(`https://ideasbroad.herokuapp.com/ideasbroad/${ideasBroad.id}`)
             .then((res) => {
                 this.props.handleGetIdeas()
             }).catch(error => console.log(error))
@@ -85,28 +85,28 @@ class IdeaForm extends Component {
     render() {
         return (
             <div className="broad" >
-                <form onBlur={this.handleSaveIdea}>
-                    <label>Title</label>
-                    <Form.Control
-                        type="text"
-                        name="title"
-                        value={this.state.title}
-                        onChange={this.handleOnChange}
-                        onKeyPress={this.handlePressTitle}
-                        ref={this.titleRef}
-                        placeholder="Title"
-                    />
-                    <label>Description</label>
-                    <Form.Control
-                        as="textarea"
-                        name="description"
-                        rows="4"
-                        value={this.state.description}
-                        onChange={this.handleOnChange}
-                        onKeyPress={this.handlePressDescription}
-                        ref={this.descriptionRef}
-                    />
-                </form>
+
+                <label>Title</label>
+                <Form.Control
+                    type="text"
+                    name="title"
+                    value={this.state.title}
+                    onChange={this.handleOnChange}
+                    onKeyPress={this.handlePressTitle}
+                    onBlur={this.handleSaveIdea}
+                />
+
+                <label>Description</label>
+                <Form.Control
+                    as="textarea"
+                    name="description"
+                    rows="4"
+                    value={this.state.description}
+                    onChange={this.handleOnChange}
+                    onKeyPress={this.handlePressDescription}
+                    ref={this.descriptionRef}
+                    onBlur={this.handleSaveIdea}
+                />
 
                 <Button
                     variant="outline-danger" size="sm" block
@@ -120,6 +120,5 @@ class IdeaForm extends Component {
         )
     }
 }
-
 
 export default IdeaForm
