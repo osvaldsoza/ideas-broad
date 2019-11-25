@@ -84,39 +84,44 @@ class IdeaForm extends Component {
 
     render() {
         return (
-            <div className="broad" >
-
-                <label>Title</label>
-                <Form.Control
-                    type="text"
-                    name="title"
-                    value={this.state.title}
-                    onChange={this.handleOnChange}
-                    onKeyPress={this.handlePressTitle}
-                    onBlur={this.handleSaveIdea}
-                />
-
-                <label>Description</label>
-                <Form.Control
-                    as="textarea"
-                    name="description"
-                    rows="4"
-                    value={this.state.description}
-                    onChange={this.handleOnChange}
-                    onKeyPress={this.handlePressDescription}
-                    ref={this.descriptionRef}
-                    onBlur={this.handleSaveIdea}
-                />
-
+            <Form>
+                <Form.Group>
+                    <Form.Label>Title</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="title"
+                        className="input-form"
+                
+                        value={this.state.title}
+                        onChange={this.handleOnChange}
+                        onKeyPress={this.handlePressTitle}
+                        onBlur={this.handleSaveIdea}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        name="description"
+                        rows="4"
+                        className="input-form"
+                
+                        value={this.state.description}
+                        onChange={this.handleOnChange}
+                        onKeyPress={this.handlePressDescription}
+                        ref={this.descriptionRef}
+                        onBlur={this.handleSaveIdea}
+                    />
+                </Form.Group>
                 <Button
-                    variant="outline-danger" size="sm" block
+                    variant="outline-dark" size="sm" block
                     style={{ marginTop: '5px' }}
                     onClick={this.handleExcluirIdea}
                     ref={this.btnDeleteRef}
                 >
                     Delete Idea
                  </Button>
-            </div>
+            </Form>
         )
     }
 }

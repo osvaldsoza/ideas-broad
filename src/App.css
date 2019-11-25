@@ -1,33 +1,56 @@
-.App{
+.App {
   margin-top: 20px;
 }
 
-.label-form{
+.label-form {
   width: 100px;
 }
-.form-control{
+.form-control {
   width: 210px;
 }
-h2{
+h2 {
   margin-top: 30px;
   margin-bottom: 30px;
 }
 
-.card{
-  border:none;
+.btn-new {
+  width: 120px;
 }
-.broad{
-  margin: 10px;
-  width: 220px;
-  height: 250px;
-  padding: 5px;
-  background:  lightgray;
-float: left;
-font-size: 11px;
-text-align: left;
-margin-bottom: 30px;
+
+/* .card {
+  width: 20rem;
+  margin-top: .5rem;
+  margin-left: .5rem;
+} */
+
+.input-form{
+  width: 15rem;
 }
-.alert{
-  padding: .30rem 1.25rem;
-  margin-left: 10px;
+
+@media (max-width: 1200px) {
+  .card {
+    width: 10rem;
+  }
+
+  .input-form {
+    width: 10rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .d-sort {
+    flex-direction: column;
+  }
+  .btn-new {
+    width: 290px;
+    margin-bottom: 10px;
+  }
+  .form-control {
+    width: 160px;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

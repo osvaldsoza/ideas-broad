@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import git from './github-logo.png'
-import { Button, Form, Card, Alert } from 'react-bootstrap'
+import { Button, Form, Card, Alert, CardGroup, CardDeck, Container, Row, Col } from 'react-bootstrap';
 import IdeaForm from '././components/IdeaForm'
 import update from 'immutability-helper'
 
@@ -38,7 +38,7 @@ class App extends Component {
     }
     axios.post('https://ideasbroad.herokuapp.com/ideasbroad', ideasBroad)
       .then((res) => {
-        const ideas =   update(this.state.ideas, { $splice: [[0, 0, res.data]] })
+        const ideas = update(this.state.ideas, { $splice: [[0, 0, res.data]] })
         this.setState({ ideas, editingIdeaId: res.data.id }, () => {
           this.handleGetIdeas()
         })
@@ -47,61 +47,67 @@ class App extends Component {
     this.setState({ newIdea: true });
   }
 
-  selectItems = () =>{
-    return(
+  selectItems = () => {
+    return (
       opsSorted.map(o => {
-        return(
+        return (
           <option value={o.value}>{o.label}</option>
         )
-      }) 
+      })
     )
   }
 
   render() {
+    console.log(this.state.ideas)
     return (
-      <div className="App d-flex flex-column align-items-center" >
-        <Card style={{ width: '70rem' }}>
-          <Card.Body>
-            <h2 className="text-center">Idea Board
+      <Container>
+        <h2 className="text-center">Idea Board
             <Form.Text className="text-muted">
-                <a href="https://github.com/osvaldsoza/ideas-broad" target="_blank" ><img src={git} alt="Git - osvaldsoza-ideas-broad" /></a>
-              </Form.Text>
-            </h2>
-            <div className="d-flex align-items-baseline"
-              style={{ marginLeft: '10px' }}
+            <a href="https://github.com/osvaldsoza/ideas-broad" target="_blank" ><img src={git} alt="Git - osvaldsoza-ideas-broad" /></a>
+          </Form.Text>
+        </h2>
+
+        <div className="d-sort d-flex" style={{ marginBottom: '10px' }} >
+          <Button
+            className="btn-new"
+            variant="dark" size="lg"
+            onClick={this.handleNewIdea}>
+            New Idea
+          </Button>
+          <div className="d-flex align-items-baseline">
+            <Form.Label
+              className="label-form"
+              style={{ marginLeft: '10px', marginRight: '10px' }}
             >
-              <Button variant="light" size="lg"
-                onClick={this.handleNewIdea}>
-                New Idea
-              </Button>
-              <Form.Label
-                className="label-form"
-                style={{ marginLeft: '10px', marginRight: '10px' }}
-              >
-                Sort ideas by:
+              Sort ideas by:
             </Form.Label>
-              <Form.Control as="select">
-                {
-                  this.selectItems()
-                }
-              </Form.Control>
-              {/*           <Alert variant='success' size='sm'>
-                Idea saved successfully!
-    </Alert> */}
-            </div>
-         
-              {this.state.ideas.map((idea) => {
-                return (
-                  <IdeaForm
-                    idea={idea}
-                    key={idea.id}
-                    handleGetIdeas={this.handleGetIdeas}
-                  />
-                )
-              })}
-          </Card.Body>
-        </Card>
-      </div>
+            <Form.Control as="select">
+              {
+                this.selectItems()
+              }
+            </Form.Control>
+          </div>
+        </div>
+        <CardDeck>
+          <Row>
+            {this.state.ideas.map((idea) => {
+              return (
+                <Col md="3">
+                  <Card bg="light" border="dark" text="dark" style={{ width: '18rem', marginTop: '.5rem', marginRight: '5rem' }}>
+                    <Card.Body>
+                      <IdeaForm
+                        idea={idea}
+                        key={idea.id}
+                        handleGetIdeas={this.handleGetIdeas}
+                      />
+                    </Card.Body>
+                  </Card>
+                </Col>
+              )
+            })}
+          </Row>
+        </CardDeck>
+      </Container>
     );
   }
 }
