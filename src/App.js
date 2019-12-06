@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import git from './github-logo.png'
-import { Button, Form, Card, Alert, CardGroup, CardDeck, Container, Row, Col } from 'react-bootstrap';
+import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
 import IdeaForm from '././components/IdeaForm'
 import update from 'immutability-helper'
+import Logo from './components/Logo';
 
 const opsSorted = [
   { value: 1, label: 'Date  created' }
 ]
 
 const initialState = {
-  ideas: [],
-  editingIdeaId: null
+  ideas: []
 }
+
+const ideasbroad_herokuapp = 'https://ideasbroad.herokuapp.com/ideasbroad'
 
 class App extends Component {
   constructor(props) {
@@ -25,7 +27,7 @@ class App extends Component {
   }
 
   handleGetIdeas = () => {
-    axios.get('https://ideasbroad.herokuapp.com/ideasbroad')
+    axios.get(ideasbroad_herokuapp)
       .then((res) => {
         this.setState({ ideas: res.data })
       }).catch(error => console.log(error))
@@ -36,10 +38,10 @@ class App extends Component {
       title: ' ',
       description: ' '
     }
-    axios.post('https://ideasbroad.herokuapp.com/ideasbroad', ideasBroad)
+    axios.post(ideasbroad_herokuapp, ideasBroad)
       .then((res) => {
         const ideas = update(this.state.ideas, { $splice: [[0, 0, res.data]] })
-        this.setState({ ideas, editingIdeaId: res.data.id }, () => {
+        this.setState({ ideas }, () => {
           this.handleGetIdeas()
         })
       }).catch(error => console.log(error))
@@ -58,21 +60,20 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.ideas)
     return (
       <Container>
-        <h2 className="text-center">Idea Board
-            <Form.Text className="text-muted">
-            <a href="https://github.com/osvaldsoza/ideas-broad" target="_blank" ><img src={git} alt="Git - osvaldsoza-ideas-broad" /></a>
-          </Form.Text>
-        </h2>
-
+        <Logo
+          title="Ideas Broad"
+          href="https://github.com/osvaldsoza/ideas-broad"
+          src={git}
+          alt="Git - osvaldsoza-ideas-broad"
+        />
         <div className="d-sort d-flex" style={{ marginBottom: '10px' }} >
           <Button
             className="btn-new"
-            variant="dark" size="lg"
+            variant="dark" size="sm"
             onClick={this.handleNewIdea}>
-            New 
+            New
           </Button>
           <div className="d-flex align-items-baseline">
             <Form.Label

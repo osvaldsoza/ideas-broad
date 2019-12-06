@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { Button, Form } from 'react-bootstrap'
-import trash from '../../src/trash.png'
+
+const ideasbroad_herokuapp = 'https://ideasbroad.herokuapp.com/ideasbroad'
 
 class IdeaForm extends Component {
     static propTypes = {
@@ -34,13 +35,12 @@ class IdeaForm extends Component {
             title,
             description
         } = this.state
-        console.log(title)
         const ideasBroad = {
             title,
             description,
             id: this.props.idea.id
         }
-        axios.post('https://ideasbroad.herokuapp.com/ideasbroad', ideasBroad)
+        axios.post(ideasbroad_herokuapp, ideasBroad)
             .then((res) => {
                 this.props.handleGetIdeas()
             }).catch(error => console.log(error))
@@ -58,7 +58,7 @@ class IdeaForm extends Component {
             id: this.props.idea.id
         }
 
-        axios.delete(`https://ideasbroad.herokuapp.com/ideasbroad/${ideasBroad.id}`)
+        axios.delete(`${ideasbroad_herokuapp}/${ideasBroad.id}`)
             .then((res) => {
                 this.props.handleGetIdeas()
             }).catch(error => console.log(error))
