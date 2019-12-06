@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import git from './github-logo.png'
 import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
-import IdeaForm from '././components/IdeaForm'
 import update from 'immutability-helper'
+import git from './github-logo.png'
+import IdeaForm from '././components/IdeaForm'
 import Logo from './components/Logo';
 
 const opsSorted = [
@@ -14,7 +14,7 @@ const initialState = {
   ideas: []
 }
 
-const ideasbroad_herokuapp = 'https://ideasbroad.herokuapp.com/ideasbroad'
+const url_app = 'https://ideasbroad.herokuapp.com/ideasbroad'
 
 class App extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   handleGetIdeas = () => {
-    axios.get(ideasbroad_herokuapp)
+    axios.get(url_app)
       .then((res) => {
         this.setState({ ideas: res.data })
       }).catch(error => console.log(error))
@@ -38,7 +38,8 @@ class App extends Component {
       title: ' ',
       description: ' '
     }
-    axios.post(ideasbroad_herokuapp, ideasBroad)
+    
+    axios.post(url_app, ideasBroad)
       .then((res) => {
         const ideas = update(this.state.ideas, { $splice: [[0, 0, res.data]] })
         this.setState({ ideas }, () => {
