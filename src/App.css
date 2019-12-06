@@ -5,9 +5,7 @@
 .label-form {
   width: 100px;
 }
-.form-control {
-  width: 210px;
-}
+
 h2 {
   margin-top: 30px;
   margin-bottom: 30px;
@@ -17,40 +15,11 @@ h2 {
   width: 120px;
 }
 
-/* .card {
-  width: 20rem;
-  margin-top: .5rem;
-  margin-left: .5rem;
-} */
+.label-form {
+  width: 200px;
+  }
 
-.input-form{
-  width: 15rem;
+  .card.bg-light.text-dark.border-dark {
+margin: 14px 0px;
 }
 
-@media (max-width: 1200px) {
-  .card {
-    width: 10rem;
-  }
-
-  .input-form {
-    width: 10rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .d-sort {
-    flex-direction: column;
-  }
-  .btn-new {
-    width: 290px;
-    margin-bottom: 10px;
-  }
-  .form-control {
-    width: 160px;
-  }
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-}

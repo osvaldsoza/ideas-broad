@@ -88,25 +88,23 @@ class App extends Component {
             </Form.Control>
           </div>
         </div>
-        <CardDeck>
-          <Row>
-            {this.state.ideas.map((idea) => {
-              return (
-                <Col md="3">
-                  <Card bg="light" border="dark" text="dark" style={{ width: '18rem', marginTop: '.5rem', marginRight: '5rem' }}>
-                    <Card.Body>
-                      <IdeaForm
-                        idea={idea}
-                        key={idea.id}
-                        handleGetIdeas={this.handleGetIdeas}
-                      />
-                    </Card.Body>
-                  </Card>
-                </Col>
-              )
-            })}
-          </Row>
-        </CardDeck>
+        <Row>
+          {this.state.ideas.map((idea) => {
+            return (
+              <Col lg="3">
+                <Card bg="light" border="dark" text="dark">
+                  <Card.Body>
+                    <IdeaForm
+                      idea={idea}
+                      key={idea.id}
+                      handleGetIdeas={this.handleGetIdeas}
+                    />
+                  </Card.Body>
+                </Card>
+              </Col>
+            )
+          })}
+        </Row>
       </Container>
     );
   }
