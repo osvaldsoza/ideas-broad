@@ -100,6 +100,7 @@ class App extends Component {
                       idea={idea}
                       key={idea.id}
                       handleGetIdeas={this.handleGetIdeas}
+                      url={url_app}
                     />
                   </Card.Body>
                 </Card>

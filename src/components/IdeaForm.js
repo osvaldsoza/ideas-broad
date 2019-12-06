@@ -1,129 +1,101 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { Button, Form } from 'react-bootstrap'
 
-const ideasbroad_herokuapp = 'https://ideasbroad.herokuapp.com/ideasbroad'
 
-class IdeaForm extends Component {
-    static propTypes = {
-        idea: PropTypes.object
-    }
-    static defaultProps = {
-        idea: {}
-    }
+const IdeaForm = ({ idea, handleGetIdeas, url }) => {
+    const [title, setTitle] = useState(idea.title)
+    const [description, setDescription] = useState(idea.description)
 
-    constructor(props) {
-        super(props)
+    const btnDeleteRef = React.createRef()
+    const descriptionRef = React.createRef()
 
-        this.state = {
-            title: this.props.idea.title,
-            description: this.props.idea.description
-        }
-
-        this.btnDeleteRef = React.createRef()
-        this.descriptionRef = React.createRef()
-        this.titleRef = React.createRef()
-    }
-
-    handleOnChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-
-    handleSaveIdea = () => {
-        const {
-            title,
-            description
-        } = this.state
-        const ideasBroad = {
+    const handleSaveIdea = () => {
+        const ideas = {
             title,
             description,
-            id: this.props.idea.id
+            id: idea.id
         }
-        axios.post(ideasbroad_herokuapp, ideasBroad)
-            .then((res) => {
-                this.props.handleGetIdeas()
+        axios.post(url, ideas)
+            .then(() => {
+                handleGetIdeas()
             }).catch(error => console.log(error))
     }
 
-    handleExcluirIdea = () => {
-        const {
-            title,
-            description
-        } = this.state
-
-        const ideasBroad = {
-            title,
-            description,
-            id: this.props.idea.id
-        }
-
-        axios.delete(`${ideasbroad_herokuapp}/${ideasBroad.id}`)
-            .then((res) => {
-                this.props.handleGetIdeas()
+    const handleExcluirIdea = () => {
+        const id = idea.id
+        axios.delete(`${url}/${id}`)
+            .then(() => {
+                handleGetIdeas()
             }).catch(error => console.log(error))
     }
 
-    handlePressTitle = (e) => {
-        if (e.which === 13 && this.state.title !== '') {
-            if (this.descriptionRef.current) {
-                this.descriptionRef.current.focus();
+    const handlePressTitle = (e) => {
+        if (e.which === 13 && title !== '') {
+            if (descriptionRef.current) {
+                descriptionRef.current.focus();
             }
-            this.handleSaveIdea();
+            handleSaveIdea();
         }
     }
 
-    handlePressDescription = (e) => {
-        if (e.which === 13 && this.state.description !== '') {
-            if (this.btnDeleteRef.current) {
-                this.btnDeleteRef.current.focus()
+    const handlePressDescription = (e) => {
+        if (e.which === 13 && description !== '') {
+            if (btnDeleteRef.current) {
+                btnDeleteRef.current.focus()
             }
-            this.handleSaveIdea();
+            handleSaveIdea();
         }
     }
 
-    render() {
-        return (
-            <Form>
-                <Form.Group>
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="title"
-                        className="input-form"
-                
-                        value={this.state.title}
-                        onChange={this.handleOnChange}
-                        onKeyPress={this.handlePressTitle}
-                        onBlur={this.handleSaveIdea}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control
-                        as="textarea"
-                        name="description"
-                        rows="4"
-                        className="input-form"
-                
-                        value={this.state.description}
-                        onChange={this.handleOnChange}
-                        onKeyPress={this.handlePressDescription}
-                        ref={this.descriptionRef}
-                        onBlur={this.handleSaveIdea}
-                    />
-                </Form.Group>
-                <Button
-                    variant="outline-dark" size="sm" block
-                    style={{ marginTop: '5px' }}
-                    onClick={this.handleExcluirIdea}
-                    ref={this.btnDeleteRef}
-                >
-                    Delete Idea
-                 </Button>
-            </Form>
-        )
-    }
+    return (
+        <Form>
+            <Form.Group>
+                <Form.Label>Title</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="title"
+                    className="input-form"
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                    onKeyPress={handlePressTitle}
+                    onBlur={handleSaveIdea}
+                />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                    as="textarea"
+                    name="description"
+                    rows="4"
+                    className="input-form"
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
+                    onKeyPress={handlePressDescription}
+                    ref={descriptionRef}
+                    onBlur={handleSaveIdea}
+                />
+            </Form.Group>
+            <Button
+                variant="outline-dark" size="sm" block
+                style={{ marginTop: '5px' }}
+                onClick={handleExcluirIdea}
+                ref={btnDeleteRef}
+            >
+                Delete Idea
+            </Button>
+        </Form>
+    )
+}
+
+IdeaForm.propTypes = {
+    idea: PropTypes.object,
+    handleGetIdeas: PropTypes.func.isRequired,
+    url: PropTypes.string.isRequired
+}
+IdeaForm.defaultProps = {
+    idea: {}
 }
 
 export default IdeaForm
