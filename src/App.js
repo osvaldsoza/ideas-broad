@@ -72,7 +72,7 @@ class App extends Component {
             className="btn-new"
             variant="dark" size="lg"
             onClick={this.handleNewIdea}>
-            New Idea
+            New 
           </Button>
           <div className="d-flex align-items-baseline">
             <Form.Label
