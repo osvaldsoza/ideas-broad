@@ -35,16 +35,6 @@ export class App extends Component {
         this.setState({newIdea: true});
     }
 
-    selectItems = () => {
-        return (
-            opsSorted.map(o => {
-                return (
-                    <option value={o.value}>{o.label}</option>
-                )
-            })
-        )
-    }
-
     render() {
         return (
             <Container>
@@ -58,22 +48,10 @@ export class App extends Component {
                     <Button
                         className="btn-new"
                         variant="dark" size="sm"
-                        onClick={this.handleNewIdea}>
-                        New
+                        onClick={this.handleNewIdea}
+                    >
+                        New Idea
                     </Button>
-                    <div className="d-flex align-items-baseline">
-                        <Form.Label
-                            className="label-form"
-                            style={{marginLeft: '10px', marginRight: '10px', width: '200px'}}
-                        >
-                            Sort ideas by:
-                        </Form.Label>
-                        <Form.Control as="select">
-                            {
-                                this.selectItems()
-                            }
-                        </Form.Control>
-                    </div>
                 </div>
                 <Cards/>
             </Container>
