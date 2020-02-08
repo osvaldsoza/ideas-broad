@@ -9,10 +9,6 @@ export const Ideas = (state = INITIAL_STATE, action) => {
             return {
                 ideas: action.ideas
             }
-        case 'NEW_IDEAS':
-            return {
-                ideas: action.ideas
-            }
         default:
             return state
     }
