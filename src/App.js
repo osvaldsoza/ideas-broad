@@ -7,10 +7,6 @@ import {loadIdeas, newIdea} from './actions/Ideas'
 import url from './util/url'
 import Cards from "./components/Cards";
 
-const opsSorted = [
-    {value: 1, label: 'Date  created'}
-]
-
 const initialState = {
     ideas: []
 }
@@ -71,4 +67,5 @@ const mapDispatchToProps = dispatch => {
         newIdea: (url, ideasBroad, ideas) => dispatch(newIdea(url, ideasBroad, ideas))
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);
