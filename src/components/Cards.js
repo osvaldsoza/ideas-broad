@@ -10,13 +10,10 @@ const Cards = (props) => {
         <Row>
             {props.ideas.map((idea) => {
                 return (
-                    <Col lg="3">
+                    <Col lg="6" key={idea.id} style={{marginBottom:'20px'}}>
                         <Card bg="light" border="dark" text="dark">
                             <Card.Body>
-                                <IdeaForm
-                                    idea={idea}
-                                    key={idea.id}
-                                />
+                                <IdeaForm idea={idea}/>
                             </Card.Body>
                         </Card>
                     </Col>

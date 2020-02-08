@@ -14,17 +14,18 @@ export const loadIdeas = (url) => {
 
 
 }
+
 export const newIdea = (url, ideasBroad, _ideas) => {
     return dispatch => {
         axios.post(url, ideasBroad)
             .then((res) => {
-                const ideas = update(_ideas, {$splice: [[0, 0, res.data]]})
+                update(_ideas, {$splice: [[0, 0, res.data]]})
                 dispatch(loadIdeas(url))
             }).catch(error => console.log(error))
     }
 }
 
-export const deleteIdea = (id,url) => {
+export const deleteIdea = (id, url) => {
     return dispatch => {
         axios.delete(`${url}/${id}`)
             .then((res) => {
@@ -33,9 +34,9 @@ export const deleteIdea = (id,url) => {
     }
 }
 
-export const saveIdea = (url,ideas) => {
+export const saveIdea = (url, ideas) => {
     return dispatch => {
-        axios.post(url,ideas)
+        axios.post(url, ideas)
             .then((res) => {
                 dispatch(loadIdeas(url))
             }).catch(error => console.log(error))

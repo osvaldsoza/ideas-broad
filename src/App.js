@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Button, Form, Container} from 'react-bootstrap';
-import img from './github-logo.png'
 import Logo from './components/Logo';
 import {loadIdeas, newIdea} from './actions/Ideas'
+import img from './github-logo.png'
 import url from './util/url'
 import Cards from "./components/Cards";
+import {Button, Container} from 'react-bootstrap';
 
 const initialState = {
     ideas: []
@@ -40,7 +40,7 @@ export class App extends Component {
                     src={img}
                     alt="Git - osvaldsoza-ideas-broad"
                 />
-                <div className="d-sort d-flex" style={{marginBottom: '10px'}}>
+                <div style={{marginBottom: '10px'}}>
                     <Button
                         className="btn-new"
                         variant="dark" size="sm"
