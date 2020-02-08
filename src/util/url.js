@@ -1,0 +1,1 @@
+export default 'https://ideasbroad.herokuapp.com/ideasbroad'

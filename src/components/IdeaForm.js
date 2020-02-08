@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+import React, {useState} from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import { Button, Form } from 'react-bootstrap'
+import {Button, Form} from 'react-bootstrap'
+import {loadIdeas, deleteIdea, saveIdea} from "../actions/Ideas";
+import url from "../util/url";
 
-
-const IdeaForm = ({ idea, handleGetIdeas, url }) => {
-    const [title, setTitle] = useState(idea.title)
-    const [description, setDescription] = useState(idea.description)
+const IdeaForm = (props) => {
+    const [title, setTitle] = useState(props.idea.title)
+    const [description, setDescription] = useState(props.idea.description)
 
     const btnDeleteRef = React.createRef()
     const descriptionRef = React.createRef()
@@ -15,20 +16,14 @@ const IdeaForm = ({ idea, handleGetIdeas, url }) => {
         const ideas = {
             title,
             description,
-            id: idea.id
+            id: props.idea.id
         }
-        axios.post(url, ideas)
-            .then(() => {
-                handleGetIdeas()
-            }).catch(error => console.log(error))
+        props.saveIdea(url, ideas)
     }
 
     const handleExcluirIdea = () => {
-        const id = idea.id
-        axios.delete(`${url}/${id}`)
-            .then(() => {
-                handleGetIdeas()
-            }).catch(error => console.log(error))
+        const id = props.idea.id
+        props.deleteIdea(id, url)
     }
 
     const handlePressTitle = (e) => {
@@ -79,7 +74,7 @@ const IdeaForm = ({ idea, handleGetIdeas, url }) => {
             </Form.Group>
             <Button
                 variant="outline-dark" size="sm" block
-                style={{ marginTop: '5px' }}
+                style={{marginTop: '5px'}}
                 onClick={handleExcluirIdea}
                 ref={btnDeleteRef}
             >
@@ -91,11 +86,24 @@ const IdeaForm = ({ idea, handleGetIdeas, url }) => {
 
 IdeaForm.propTypes = {
     idea: PropTypes.object,
-    handleGetIdeas: PropTypes.func.isRequired,
-    url: PropTypes.string.isRequired
+    loadIdeas:PropTypes.func.isRequired,
+    deleteIdea:PropTypes.func.isRequired,
+    saveIdea:PropTypes.func.isRequired
 }
 IdeaForm.defaultProps = {
     idea: {}
 }
 
-export default IdeaForm
+const mapStateToProps = state => {
+    return {
+        ideas: state.Ideas.ideas
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        loadIdeas: (url) => dispatch(loadIdeas(url)),
+        deleteIdea: (id, url) => dispatch(deleteIdea(id, url)),
+        saveIdea: (url, ideas) => dispatch(saveIdea(url, ideas))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(IdeaForm)
